@@ -1,0 +1,21 @@
+body {
+  font-family: Arial, "Helvetica";
+  font-size: 16px;
+  margin-top: 2em;
+}
+
+svg {
+  margin: 0 auto;
+}
+
+h1, main {
+  padding: 0 2em 0 2em;
+  text-align: center;
+}
+
+
+h1 {
+  font-size: 1em;
+  padding-left: 0;
+
+}
