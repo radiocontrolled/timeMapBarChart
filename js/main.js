@@ -16,15 +16,16 @@
 
   function getViewportDimensions() { 
 
-    height = window.innerHeight / 2;
     
     // if portrait
     if(window.innerHeight > window.innerWidth){
+      height = window.innerHeight / 2;
       width = document.getElementsByTagName("main")[0].offsetWidth / 1.2;
     }
 
     // if landscape
     else {
+      height = window.innerHeight / 2;
       width = document.getElementsByTagName("main")[0].offsetWidth / 2;
     }
 
