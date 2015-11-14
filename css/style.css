@@ -1,21 +1,33 @@
 body {
   font-family: Arial, "Helvetica";
   font-size: 16px;
-  margin-top: 2em;
+  color: #7f8c8d;
 }
 
-svg {
+a {
+  color: #7f8c8d;
+}
+
+svg,
+header,
+footer {
   margin: 0 auto;
 }
 
-h1, main {
-  padding: 0 2em 0 2em;
+h1, 
+main {
+  padding: 0;
   text-align: center;
 }
 
-
 h1 {
   font-size: 1em;
-  padding-left: 0;
-
+  padding: 0 0 0.25em 0;
+  border-bottom: #bdc3c7 1px solid;
+  text-align: left;
 }
+
+footer {
+  font-size: 0.5em;
+}
+

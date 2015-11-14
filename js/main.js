@@ -11,32 +11,47 @@
     labelYear, 
     labelPop, 
     colour = "#7f8c8d", 
-    title = "World Population Growth, 1953-2013";
-
+    title = "UK Population Estimates, 1953-2013", 
+    format = d3.format("0,000");
 
   function getViewportDimensions() { 
-    width = document.getElementsByTagName("main")[0].offsetWidth / 2;
-    height = window.innerHeight / 1.5;
+
+    height = window.innerHeight / 2;
+    
+    // if portrait
+    if(window.innerHeight > window.innerWidth){
+      width = document.getElementsByTagName("main")[0].offsetWidth / 1.2;
+    }
+
+    // if landscape
+    else {
+      width = document.getElementsByTagName("main")[0].offsetWidth / 2;
+    }
+
   }
 
   function drawSvg() {
-   // d3.select("main")
-   //      .append("text")
-   //      .text(title);
-
     svg = d3.select("main")
       .append("svg")
       .attr("title", "Bar chart: " + title);
 
-      setSvgSize();
+      setSvgAndHeaderSize();
   }
 
-  function setSvgSize() {
+
+  function setSvgAndHeaderSize() {
+
     svg
       .attr({
-        width: width,
+        width: width, 
         height: height
       });
+
+    d3.select("header")
+      .style("width", width + "px");
+
+    d3.select("footer")
+      .style("width", width + "px");
   }
 
   function processData() {
@@ -70,7 +85,7 @@
         },
         "height": 5,
         "y": function(d,i) {
-          return i * (height/10) + 25; 
+          return i * (height/8) + 25; 
         }, 
         "fill" : colour
       });
@@ -86,10 +101,10 @@
         "fill" : "#bdc3c7",
         "font-size" : "10px",
         "x" : function(d) {
-          return 0
+          return 0;
         },
         "y": function(d,i) {
-          return i * (height/10) + 20; 
+          return i * (height/8) + 20; 
         },
 
       });
@@ -100,7 +115,7 @@
       .append("text")
       .classed("pop", true)
       .text(function(d,i){
-        return d[1];
+        return format(d[1]);
       })
       .attr({
         "fill" : colour,
@@ -109,7 +124,7 @@
           return scale(d[1]);
         },
         "y": function(d,i) {
-          return i * (height/10) + 20; 
+          return i * (height/8) + 20; 
         }, 
         "text-anchor" : "end"
       });
@@ -140,7 +155,42 @@
   function resize() {
 
     getViewportDimensions();
-    setSvgSize();
+    setSvgAndHeaderSize();
+    setScale();
+
+    // update rectangle widths & labels
+  
+   rectangle = svg.selectAll("rect")
+      .attr({
+        "width": function(d) {
+          return scale(d[1]);
+        },
+        "height": 5,
+        "y": function(d,i) {
+          return i * (height/8) + 25; 
+        }
+      });
+
+    labelYear = svg.selectAll("text")
+      .attr({
+        "x" : function(d) {
+          return 0;
+        },
+        "y": function(d,i) {
+          return i * (height/8) + 20; 
+        }
+      });
+    
+    labelPop = svg.selectAll("text.pop")
+      .attr({
+        "x" : function(d) {
+          return scale(d[1]);
+        },
+        "y": function(d,i) {
+          return i * (height/8) + 20; 
+        }, 
+        "text-anchor" : "end"
+      });
 
   }
 
